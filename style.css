@@ -1,15 +1,82 @@
-body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #ffffff;
-    color: #000000;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px;
-    line-height: 1.6;
+/* 1. VARIABILI: Definiamo la tavolozza colori una volta sola */
+:root {
+    --bg: #0f172a;           /* Sfondo blu notte */
+    --card: #1e293b;         /* Colore delle schede */
+    --accent: #38bdf8;       /* Azzurro per titoli e link */
+    --text: #f1f5f9;         /* Testo chiaro principale */
+    --text-dim: #94a3b8;     /* Testo secondario grigio */
+    --radius: 12px;          /* Smussatura angoli */
 }
 
+/* 2. RESET E BASE: Pulizia dei margini e font moderno */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 3. LAYOUT: Contenitore che non si allarga troppo su PC */
+main, .container {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* 4. TITOLI: Più grandi e con colore d'accento */
 h1 {
-    color: #000000;
-    border-bottom: 1px solid #000000;
+    color: var(--accent);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: var(--accent);
+    border-bottom: 2px solid var(--card);
     padding-bottom: 10px;
+    margin-top: 2rem;
+}
+
+/* 5. LE CARD: Ogni log di laboratorio sarà un blocco distinto */
+.log-card {
+    background-color: var(--card);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 6. LINK E IMMAGINI: Cura dei dettagli */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+img {
+    max-width: 100%;
+    border-radius: var(--radius);
+    margin: 1rem 0;
+    display: block;
+}
+
+ul {
+    padding-left: 1.2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    color: var(--text-dim);
 }
