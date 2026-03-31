@@ -1,9 +1,9 @@
 /* 1. VARIABILI: Definiamo la tavolozza colori una volta sola */
 :root {
-    --bg: #0f172a;           /* Sfondo blu notte */
+    --bg: #0b0f1a;           /* Sfondo blu notte */
     --card: #1e293b;         /* Colore delle schede */
     --accent: #38bdf8;       /* Azzurro per titoli e link */
-    --text: #f1f5f9;         /* Testo chiaro principale */
+    --text: #f8fafc;         /* Testo chiaro principale */
     --text-dim: #94a3b8;     /* Testo secondario grigio */
     --radius: 12px;          /* Smussatura angoli */
 }
@@ -45,11 +45,12 @@ h2 {
 /* 5. LE CARD: Ogni log di laboratorio sarà un blocco distinto */
 .log-card {
     background-color: var(--card);
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    margin-bottom: 2rem;
+    padding: 2rem;           /* Più respiro interno */
+    border-radius: 16px;     /* Smussatura più moderna */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.3); /* Ombra a due livelli */
     border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
 }
 
 /* 6. LINK E IMMAGINI: Cura dei dettagli */
