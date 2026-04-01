@@ -15,7 +15,7 @@ nuovo_num = max(numeri) + 1 if numeri else 1
 nuovo_file = f"giorno{nuovo_num}.html"
 data_odierna = datetime.now().strftime("%d/%m/%Y")
 
-# 2. Il Template Strutturale (L'anima del nuovo file)
+# 2. Il Template Strutturale
 template = f"""<!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +44,7 @@ template = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-# Genera il file fisico
+# Genera fisicamente il file (QUESTO E' IL PEZZO CHE AVEVI PERSO)
 with open(nuovo_file, "w", encoding="utf-8") as f:
     f.write(template)
 
@@ -52,12 +52,39 @@ with open(nuovo_file, "w", encoding="utf-8") as f:
 with open("archivio.html", "r", encoding="utf-8") as f:
     archivio = f.read()
 
-nuovo_link = f'\n        <li style="margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">\n            <a href="{nuovo_file}">🔨 Giorno {nuovo_num}: Appunti del {data_odierna}</a>\n        </li>'
+# Creiamo il bersaglio assemblandolo per evitare censure
+bersaglio = "<" + "!-- INJECT_HERE --" + ">"
 
-if '' in archivio:
-    archivio = archivio.replace('', nuovo_link)
+nuovo_link = f'{bersaglio}\n        <li style="margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">\n            <a href="{nuovo_file}">🔨 Giorno {nuovo_num}: Appunti del {data_odierna}</a>\n        </li>'
+
+if bersaglio in archivio:
+    archivio = archivio.replace(bersaglio, nuovo_link)
     with open("archivio.html", "w", encoding="utf-8") as f:
         f.write(archivio)
     print(f"Script completato: {nuovo_file} generato e indicizzato in archivio.")
 else:
-    print(f"File {nuovo_file} creato, ma INJECT_HERE non trovato in archivio.html. Aggiungilo a mano.")
+    print(f"ERRORE: File {nuovo_file} creato, ma il bersaglio non è stato trovato in archivio.html.")
+
+# 4. Aggiornamento della Home (index.html)
+with open("index.html", "r", encoding="utf-8") as f:
+    home = f.read()
+
+start_tag = "<" + "!-- LATEST_START --" + ">"
+end_tag = "<" + "!-- LATEST_END --" + ">"
+
+if start_tag in home and end_tag in home:
+    # Tagliamo a fette il file usando i marcatori come lame
+    prima_del_blocco = home.split(start_tag)[0]
+    dopo_il_blocco = home.split(end_tag)[1]
+    
+    # Forgiamo il nuovo pezzo
+    nuovo_contenuto = f'\n        <p>Giorno {nuovo_num}: Appunti del {data_odierna}</p>\n        <a href="{nuovo_file}" class="btn" style="display: inline-block; background: var(--accent); color: var(--bg); padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; margin-top: 1rem;">Leggi l\'ultimo log</a>\n        '
+    
+    # Riappiccichiamo i pezzi
+    home_aggiornata = prima_del_blocco + start_tag + nuovo_contenuto + end_tag + dopo_il_blocco
+    
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(home_aggiornata)
+    print("Home aggiornata con successo.")
+else:
+    print("ERRORE: Marcatori LATEST_START o LATEST_END non trovati in index.html.")
